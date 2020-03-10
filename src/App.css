@@ -1,0 +1,39 @@
+body{
+  background: rgb(36, 36, 36);
+}
+input{
+  width: 50%;
+  padding: 15px;
+  margin: 20px;
+  border-radius: 10px;
+  border:1px solid #ccc;
+  font-family: 'Roboto', sans-serif;
+}
+
+.searchTerm{
+  background: black;
+}
+.starsDisplay{
+  margin-left: auto;
+  margin-right: auto;
+  width: 6em;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #A4A4A4;
+
+}
+.movieList{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+  
+  
+}
+.addNewMv{
+  align-items: center;
+  margin: auto;
+  margin-bottom: 20px;
+ display: block;
+}
