@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import MovieCards from './MovieCards'
+import { connect } from "react-redux";
 
 
 class ListMovies extends Component {
@@ -11,8 +12,24 @@ class ListMovies extends Component {
 
         return (
 
-            <div className='movieList'>{this.props.data.map (el => <MovieCards movie={el} />)}</div>
+            <div className='movieList'>{this.props.AllData.movies
+                .filter(
+                    el =>
+                      el.rating >= this.props.AllData.rating &&
+                      el.title
+                        .toLowerCase()
+                        .includes(this.props.AllData.keyword.trim().toLowerCase())
+                  )
+                
+                
+                .map (el => <MovieCards movie={el} />)}</div>
+            
         )
     } 
 }
-export default ListMovies
+const mapStateToProps = state => {
+    return {
+      AllData: state.MovieReducer
+    };
+  }; 
+export default connect(mapStateToProps)(ListMovies)

@@ -1,37 +1,41 @@
 import React, { Component } from 'react'
 import { Modal, Button } from "react-bootstrap";
+import { AddMovie, EditMovie } from "./Actions/actions";
+import { connect } from "react-redux";
+import { v4 as uuidv4 } from 'uuid'
 
-class AddMovie extends Component{
+class AddMovieModal extends Component{
     constructor (props){
         super(props)
         this.state={
-            title:'',
-            year:'',
-            image:'',
-            rating:'',
-            show:false
+          show: false,
+          title: this.props.editMode  ? this.props.movieToEdit.title : "",
+          year: this.props.editMode ? this.props.movieToEdit.year : "",
+          rating: this.props.editMode ? this.props.movieToEdit.rating : "",
+          image: this.props.editMode ? this.props.movieToEdit.image : ""
             
        }
     }
-     handleShow = () => {
-        this.setState({ show: !this.state.show });
-      };
-      handleChange=(e)=>{
-        this.setState({
-            [e.target.name]: e.target.value
-        })
-    }
+    handleShow = () => {
+      this.setState({ show: !this.state.show });
+    };
+    handleChange = e => {
+      this.setState({ [e.target.name]: e.target.value });
+    };
     add = () => {
-        let newMovie = {
-              title: this.state.title,
-              year: this.state.year,
-              image: this.state.image,
-              rating: this.state.rating
-              
-            }
-        this.props.addMovie(newMovie) 
-        this.setState({show: false})
-    }
+      var newMovie = {
+        id: uuidv4(),
+        title: this.state.title,
+        year: this.state.year,
+        image: this.state.image,
+        rating: this.state.rating
+      };
+      this.props.addNewMovie(newMovie);
+    };
+    editM = () => {
+      this.props.EditMovie(this.props.movieToEdit.id, this.state);
+      this.setState({ show: false });
+    };
     
     render() {
         return(
@@ -68,7 +72,7 @@ class AddMovie extends Component{
                 <Button variant="danger" onClick={this.handleShow}>
                   Close
                 </Button>
-                <Button variant="dark" onClick={this.add}>Add Movie</Button>
+                <Button variant="dark" onClick={this.props.editMode ? this.editM : this.add}>{this.props.editMode ? "Edit" : "Add Movie"}</Button>
               </Modal.Footer>
             </Modal>
           </div>
@@ -76,4 +80,12 @@ class AddMovie extends Component{
         )
     }
 }
-export default AddMovie
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addNewMovie: newMovie => dispatch(AddMovie(newMovie)),
+    EditMovie: (id, updatedMovie) => dispatch(EditMovie(id, updatedMovie))
+  };
+};
+
+export default connect(null, mapDispatchToProps) (AddMovieModal)

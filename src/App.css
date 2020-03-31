@@ -1,17 +1,15 @@
 body{
   background: rgb(36, 36, 36);
 }
-input{
+
+
+.searchTerm{
   width: 50%;
   padding: 15px;
   margin: 20px;
   border-radius: 10px;
   border:1px solid #ccc;
   font-family: 'Roboto', sans-serif;
-}
-
-.searchTerm{
-  background: black;
 }
 .starsDisplay{
   margin-left: auto;
@@ -36,4 +34,9 @@ input{
   margin: auto;
   margin-bottom: 20px;
  display: block;
+}
+.card-btn{
+  display: flex;
+  margin: 10px;
+  border-radius: 5px;
 }
